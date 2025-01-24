@@ -1,13 +1,14 @@
 import streamlit as st
 from groq import Groq
 from typing import Generator
-groq_api_key = st.sidebar.text_input("GROQ API Key", type="password")
-# st.title("Echo bot")
+
 st.set_page_config(
     page_icon="💬",
     page_title="Chat App",
     layout="wide",
 )
+
+groq_api_key = st.sidebar.text_input("GROQ API Key", type="password")
 
 st.title("ChatGPT-like clone 🎈")
 client = Groq(api_key=groq_api_key)
@@ -50,27 +51,27 @@ for message in st.session_state.messages:
     with right.chat_message(message["role"], avatar=avatar):
         right.markdown(message["content"])
 
-prompt = st.chat_input("Say something")
-if prompt:
-    with right.chat_message("user", avatar='👨‍💻'):
-        right.markdown(prompt)
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    # response = f"Echo: {prompt}"
-    with right.chat_message("assistant"):
-        stream = client.chat.completions.create(
-            model=st.session_state["groq_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-            max_completion_tokens=max_tokens,
-            temperature=temperature,
-        )
+if not groq_api_key:
+    st.warning("Please enter your Groq API key!", icon="⚠")
+else:
+    prompt = st.chat_input("Say something")
+    if prompt:
+        with right.chat_message("user", avatar='👨‍💻'):
+            right.markdown(prompt)
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with right.chat_message("assistant"):
+            stream = client.chat.completions.create(
+                model=st.session_state["groq_model"],
+                messages=[
+                    {"role": m["role"], "content": m["content"]}
+                    for m in st.session_state.messages
+                ],
+                stream=True,
+                max_completion_tokens=max_tokens,
+                temperature=temperature,
+            )
 
-        r = generate_chat_responses(stream)
-        response = right.write_stream(r)
-    #    st.markdown(response)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+            r = generate_chat_responses(stream)
+            response = right.write_stream(r)
+        st.session_state.messages.append({"role": "assistant", "content": response})
 
-# st.write("Hello 👋")
