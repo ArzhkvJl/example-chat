@@ -1,4 +1,3 @@
-import sys
 import streamlit as st
 import os
 import pandas as pd
@@ -11,8 +10,6 @@ from phi.model.groq import Groq
 from phi.knowledge.langchain import LangChainKnowledgeBase
 from phi.run.response import RunResponse, RunEvent
 import tweepy
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 
 def create_vectorstore():
@@ -54,7 +51,7 @@ def create_prompt():
     # Load CSV containing topics and posts
     df = pd.read_csv(filepath_or_buffer="data/succinct_tweets.csv", on_bad_lines='skip', header=None)
     prompt = ("You are an AI assistant trained to generate Twitter posts based "
-              "on the language patterns and structure found in a CSV file. "
+              "on the language patterns and structure found in an examples. "
               "Here are some examples:\n")
     for row in df.values:
         prompt += str(row)
@@ -80,15 +77,17 @@ groq_api_key = st.sidebar.text_input("GROQ API Key", type="password")
 twitter_api_key = st.sidebar.text_input("X (Twitter) Bearer Token", type="password")
 os.environ['GROQ_API_KEY'] = groq_api_key
 os.environ['USER_AGENT'] = 'Agent-For-Twitter'
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 st.title("Twitter reply Agent 🎈")
 
 retriever = create_vectorstore().as_retriever()
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 agent = Agent(model=Groq(id="llama-3.3-70b-versatile"),
-              knowledge_base=knowledge_base, add_references_to_prompt=True,
+              knowledge_base=knowledge_base,
               description="You are an AI assistant trained to generate Twitter replies for posts",
-              instructions=["Read a base post and generate a reply",
+              instructions=["Read a base post and generate a reply.",
+                            "If post consists context about eOracle or eoracle, use knowledgebase and paste information about eOracle into reply.",
                             "Create a Twitter reply for this post that is between 120-160 letters long.",
                             "Use one or two smiles from your language patterns."])
 
