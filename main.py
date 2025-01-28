@@ -132,33 +132,28 @@ else:
             tweet = response.data
         else:
             tweet = ""
-            response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'])
+            response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'],)
             tweets = response.data
             for sent in tweets:
                 tweet += sent.text
-        if response.status_code == 200:
-            if 'eOracle'.lower() in tweet.lower():
-                agent.search_knowledge = True
-            else:
-                agent.search_knowledge = False
+        if 'eOracle'.lower() in tweet.lower():
+            agent.search_knowledge = True
+        else:
+            agent.search_knowledge = False
 
-            chromadb.api.client.SharedSystemClient.clear_system_cache()
+        chromadb.api.client.SharedSystemClient.clear_system_cache()
 
-            prompt_template = create_prompt()
+        prompt_template = create_prompt()
 
-            with right.chat_message("user", avatar='👨‍💻'):
-                right.markdown("Twitter post that is between 120-160 letters long.")
-            st.session_state.messages.append({"role": "user", "content": prompt_template})
-            with right.chat_message("assistant"):
-                stream = agent.run(prompt_template,
+        with right.chat_message("user", avatar='👨‍💻'):
+            right.markdown("Twitter post that is between 120-160 letters long.")
+        st.session_state.messages.append({"role": "user", "content": prompt_template})
+        with right.chat_message("assistant"):
+            stream = agent.run(prompt_template,
                                    stream=True,
                                    temperature=temperature, )
-                r = generate_chat_responses(stream)
-                response = right.write_stream(r)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-        elif response.status_code == 429:
-            st.warning("Too Many Requests, Tweet Rate Limit Exceeded!", icon="⚠")
-        else:
-            st.warning("Error response", icon="⚠")
+            r = generate_chat_responses(stream)
+            response = right.write_stream(r)
+        st.session_state.messages.append({"role": "assistant", "content": response})
         chromadb.api.client.SharedSystemClient.clear_system_cache()
 
