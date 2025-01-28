@@ -11,6 +11,7 @@ from phi.model.groq import Groq
 from phi.knowledge.langchain import LangChainKnowledgeBase
 from phi.run.response import RunResponse, RunEvent
 import tweepy
+
 __import__('pysqlite3')
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 import chromadb
@@ -129,14 +130,14 @@ else:
             bearer_token=twitter_api_key)
         if tweet_id:
             response = client.get_tweet(id=tweet_id, tweet_fields=['text'])
-            tweet = response.data
+            tweet = response.data.text
         else:
             tweet = ""
             response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'])
             tweets = response.data
-            print(tweets)
             for sent in tweets:
                 tweet += sent.text
+        print(tweet)
         if 'eOracle'.lower() in tweet.lower():
             agent.search_knowledge = True
         else:
@@ -151,10 +152,9 @@ else:
         st.session_state.messages.append({"role": "user", "content": prompt_template})
         with right.chat_message("assistant"):
             stream = agent.run(prompt_template,
-                                   stream=True,
-                                   temperature=temperature, )
+                               stream=True,
+                               temperature=temperature, )
             r = generate_chat_responses(stream)
             response = right.write_stream(r)
         st.session_state.messages.append({"role": "assistant", "content": response})
         chromadb.api.client.SharedSystemClient.clear_system_cache()
-
