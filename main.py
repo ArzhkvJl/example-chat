@@ -132,8 +132,9 @@ else:
             tweet = response.data
         else:
             tweet = ""
-            response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'],)
+            response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'])
             tweets = response.data
+            print(tweets)
             for sent in tweets:
                 tweet += sent.text
         if 'eOracle'.lower() in tweet.lower():
