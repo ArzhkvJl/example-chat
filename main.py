@@ -122,8 +122,8 @@ else:
     if user_input:
         inpt = user_input.split()
         word_count = len(inpt)
-        account_name = user_input[0] if word_count > 0 else None
-        tweet_id = user_input[1] if word_count > 1 else None
+        account_name = inpt[0] if word_count > 0 else None
+        tweet_id = inpt[1] if word_count > 1 else None
 
         client = tweepy.Client(
             bearer_token=twitter_api_key)
