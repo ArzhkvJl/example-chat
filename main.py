@@ -82,7 +82,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 st.title("Twitter reply Agent 🎈")
 
-chromadb.api.client().SharedSystemClient.clear_system_cache()
+chromadb.api.client.SharedSystemClient.clear_system_cache()
 retriever = create_vectorstore().as_retriever()
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 agent = Agent(model=Groq(id="llama-3.3-70b-versatile"),
@@ -142,7 +142,7 @@ else:
             else:
                 agent.search_knowledge = False
 
-            chromadb.api.client().SharedSystemClient.clear_system_cache()
+            chromadb.api.client.SharedSystemClient.clear_system_cache()
 
             prompt_template = create_prompt()
 
@@ -160,5 +160,5 @@ else:
             st.warning("Too Many Requests, Tweet Rate Limit Exceeded!", icon="⚠")
         else:
             st.warning("Error response", icon="⚠")
-        chromadb.api.client().SharedSystemClient.clear_system_cache()
+        chromadb.api.client.SharedSystemClient.clear_system_cache()
 
