@@ -1,0 +1,212 @@
+"Today, we’re introducing the Succinct Network whitepaper."
+Only the real ones will remember the turbo button.
+Turbo on.👊🏻
+📈📈📈📈📈
+Let's go turbo
+Turbo time
+wen lanparty
+So many code red mountain dews
+"I've seen a few recent threads debating decentralized ZK prover networks.
+
+Prover networks are new category, so confusion is fair, but critiques reveal a complete misunderstanding of practical, at-scale ZKP workloads &amp; market structure.
+
+Let's get bullish prover networks ⬇️"
+THE PUMA IS OUT
+"RT @user: I've seen a few recent threads debating decentralized ZK prover networks.
+
+Prover networks are new category, so confusion i…"
+"Succinct Labs SP1, zkVM, Use Cases, and Positioning.
+
+Let’s continue from where we stopped,  shall we? 
+Welcome to part 2 of our series.
+
+Time: 3mins out of your 24hrs👇👇👇"
+gmoon math🫡
+gmoon math 🫡🫡
+always on
+never off
+Let's rock
+🤘🤘🤘👩‍🎤👩‍🎤👩‍🎤
+ready set turbo!
+it's turbo time !
+"I am returning to being a cryptography influencer.
+
+There is 30 days until ETHDenver. My goal is to understand every line of code in every zkVM.
+
+If you have specific things you want to learn about RiscZero, Sp1, Jolt, Nexus, etc, let me know!"
+That's what I told her
+😂😂😂
+SP1 Turbo Livestream
+Average Succinct-turbo enjoyer
+Doxxing them. but yes – they look exactly like this.
+5x faster: SP1 Turbo
+LFG KING
+"is this an educated enough guess? 😊
+
+spill it intern we want to know why zk revolution is taking some time to start. (though I do believe in a year or so most of L2s will be zk integrated one way or another)"
+good things take time :)
+"SP1 TURBO: ONE STEP CLOSER TO REAL-TIME PROVING WITH A NEW MEMORY ARGUMENT
+
+One of the biggest changes we made in SP1 Turbo was the way the zkVM handles memory. This was a key change that allowed us to achieve our amazing benchmark of proving Ethereum blocks < 40 seconds on AWS. I had a lot of fun implementing this with the team and wanted to write a quick post on it.
+
+Keeping track of memory with two logbooks
+
+Throughout all versions of SP1, we follow Spartan's offline memory checking approach (itself based on Blum et al. [BEG+94]). Here's how the offline memory checking approach works, simplified:
+
+- Every time we access memory (whether reading or writing), we record two pieces of information. Think of these as two logbooks: one for reads (R) and one for writes (W). Each entry in these logbooks contains three pieces of information: what value was accessed, where in memory it was accessed, and when it happened.
+- When reading from memory, we make an entry in both logbooks. In the read logbook (R), we record what value we found and when we last read from that location. In the write logbook (W), we record that same value but with the current time.
+- When writing to memory, we again make entries in both logbooks. The read logbook (R) gets the old value that was there, while the write logbook (W) gets the new value we're writing, both with their respective timestamps.
+
+Memory is considered consistent if every read operation matches up with a previous write operation that put that value there. This simple but powerful system allows us to verify that memory operations happened correctly and in the right order, without having to store the entire history of memory states.
+
+The evolution of SP1's logbook implementation
+
+In SP1 V1-V3, we implemented these logbooks using fingerprinting (specifically LogUp). While this approach worked, it had a significant limitation: it required randomness from the verifier meaning we had to wait for the entire computation to finish before we could start proving memory consistency. This hurt our end-to-end latency in the cloud by almost 2x and required substantially more GPUs to achieve peak latency.
+
+In SP1 Turbo, we fixed these problems by switching to a technique known as elliptic curve multi-set hashing. The short explanation of how this method works is that it “hashes” the message we write in the logbook and then uses that as the coordinates of an elliptic curve point. A running sum of these elliptic curve points is kept track of, which provides a succinct summary of the logbook state. This new approach allows us to verify memory operations ""on-the-fly"" as the computation proceeds since it doesn’t require verifier randomness and instead relies on properties of elliptic curves. We  carefully chose an elliptic curve over the BabyBear field that enables efficient proving while maintaining strong security properties (h/t @user).
+
+Jens Groth is also working on some theoretical improvements to this argument which would avoid the “hashing” step and make it substantially cheaper to use in zkVMs:  Super excited to see progress on this front.
+
+Practical implications: a 10x in proving latency on substantially less GPUs
+
+The shift to elliptic curve multi-set hashing in SP1 Turbo transformed our proving pipeline by eliminating the sequential bottleneck of memory verification. In SP1 V1 to V3, we had to first materialize all the computation traces in memory before we could begin verifying memory consistency. This meant deploying extremely large GPU clusters to get close to the latency we now have with SP1 Turbo and just ~100 GPUs.
+
+This new approach is what now enables us to consistently prove Ethereum blocks under 40 seconds on AWS hardware.
+
+Conclusion
+
+We have a more in-depth technical note covering this here: 
+
+At Succinct, our mission is to push the boundaries of what's possible with zero-knowledge proofs, and SP1 Turbo is a major milestone in that journey. We're thrilled by the progress we've made and are eagerly looking ahead to further optimizations.
+
+If you’re interested in working at the frontier of zero-knowledge proofs, please feel free to reach out! My DMs are open."
+It's turbo time
+"RT @user: SP1 TURBO: ONE STEP CLOSER TO REAL-TIME PROVING WITH A NEW MEMORY ARGUMENT
+
+In 2025 ZK is coming for every ecosystem.  No survivors. Everything will be verifiable.
+
+Real world cryptography is becoming easy to develop with SP1.
+
+Rute built a proof of residency app that's live today!
+
+In 2025, we're super excited to see what ZK applications people develop with SP1 beyond blockchains.
+
+SP1 is powering @0xMantle to become the world's largest ZK rollup.
+
+Mantle is upgrading to a type-1 zkEVM to unlock institutional grade fast finality.
+
+7/ Mantle’s decision shows that ZKPs are ready to support the largest rollups in crypto.
+
+Teams no longer have to make tradeoffs between security, performance, and customizability.
+
+LumiBit initially modified a circuit-based zkEVM to handle these signatures, but it proved too time consuming.
+
+Now they’re migrating to an SP1 based design, boosting developer velocity—write Rust not circuits.
+Want a white paper shirt?
+
+Share a photo of a printed copy of our white paper in the comments and we'll send you one.
+
+Bitcoin made anyone a miner.
+
+Ethereum made anyone a staker.
+
+Tomorrow, Succinct makes anyone a [REDACTED].
+The white paper cake has arrived!
+
+Happy Succinct White Paper Day!
+
+Print out a copy and read it.
+So grateful to spend Thanksgiving with @hal2001, who is a very nice guy!
+
+Excited to try his "World Famous Turducken" and a slice of his "Hart-warming" pumpkin pie!
+
+Happy Thanksgiving from all of us at Succinct!
+If the goal was to create immense levels of fomo then I can confidently say it has been achieved.
+
+Let's run it back
+To verify that computation is executed correctly within a TEE it is necessary to verify a signature from the device onchain.
+
+Today, this is prohibitively expensive, costing 4M gas.
+
+Thankfully, you can use an SP1 proof of signature verification & verify it onchain for only ~230k gas!
+Hurry! Just one hour left to win a Ferris Plushie. 🦀
+Succinct community showing up bigly for our first ever SP1: Fast as F*ck Grand Prix 🏁
+
+Apologies to those on the waitlist! You can still enjoy blazing fast speeds by using SP1 –– and making car sounds with your mouth. 🏎️💨
+
+See you at 6! 🫶
+This is possible due to our precompile-centric architecture, which speeds up common cryptographic primitives like Blake, sha2, secp256k1, sha3 and many more.
+
+It’s not just fast—it’s a developer's dream!
+We’re pumped to support Taiko on their multi-proof journey toward secure, unstoppable rollups.
+
+If you’re interested in this architecture or using SP1 in your stack—roll up, join the growing Succinct ecosystem to prove the world's software.
+Our very own 'Rusty Ratan' (@ratankaliani) will be reviewing the GitHubs to identify 2 winners!
+
+See tweet for details 👇
+A partnership with Succinct is not just two logos and a handshake emoji...
+It's a love language 🤝
+contributors are looking to strengthen the Lido protocol with ZKPs.
+SP1 will help secure over $28B of stETH by augmenting Lido protocol oracles with verifiably computed validator statistics, helping guard against wrongly reported negative rebase events.
+Following the usage of ZK trust-minimized oracles as an augmentative security mechanism, essentially offering a “sanity check”, the stage is set for a future where trust-minimized oracles can potentially replace the core functionality of trusted ones.
+Following a period of testing, and potential Lido DAO approval, of this augmentative component to oracle security, we’re excited to see a path for this project going to mainnet with the passing of LIP-23.
+SP1 is powerful.
+Morph’s L2 is live on mainnet with SP1-powered validity proofs!
+
+By switching to a Rust-based zkEVM, Morph now can:
+
+► Generate proofs 10x faster
+► Handle unlimited txs per block
+► Achieve 3x faster finality
+Learn about how they 𝗺𝗼𝗿𝗽𝗵𝗲𝗱 into the future with SP1.
+That's it, that's the tweet.
+Overall, Morph L2 just got faster, smarter, and more secure with SP1. And it’s live on Mainnet.
+
+We're thrilled to continue collaborating with @MorphL2 to add ZK-friendly features like a Poseidon2 precompile for faster state root hashing. Need a custom precompile? Reach out!
+The Succinct ecosystem is growing rapidly, and we’re excited to welcome Morph to the family of teams using SP1 to build secure and performant apps.
+Interested in leveraging SP1 for your rollups, bridges, oracles, or other applications? Connect with us
+Discoveries from the ZK Residency:
+
+The EOF upgrade to EVM will reduce the ZK proving costs of EVM contracts by up to 3x.
+
+Real time Ethereum proving is getting closer and closer.
+Behind the scenes, our team worked closely with @emilianobonassi and the Conduit team to consolidate the OP Succinct implementation and make it accessible to rollups using Celestia for DA.
+Months of meetings, messages, and in-person collaboration between our three teams show the true power of open-source collaboration.
+First software ate the world.
+Now it’s time to prove the world's software.
+This isn’t just a rebrand, this is ZK for everyone.
+One of the most based side events at Devcon.
+
+We'll be revisiting the World Computer Thesis with an incredible group of big name speakers, rising builders and @MaxResnick1.
+See you there🫡
+We’ve never been more convinced that ZK is a critical technology.
+
+This isn’t a solo mission.
+
+We need the world’s best engineers, cryptography researchers, and hardware teams to help us prove the world’s software.
+
+This isn’t just a rebrand, this is a movement.
+If you're in SF for ETHGlobal, stop by our office Friday for the ZK Residency Sendoff!
+
++ Beautiful SF Views
++ ZK Resident Presentations
++ Drinks & Networking
++ Live Performance from Frankie Valli
++ Moo Deng Book Signing (limited copies available)
+
+Don't miss it! 🫡
+AltLayer 🤝 OP Succinct
+
+With OP Succinct, withdrawing to Ethereum takes 1 hour instead of 7 days.
+
+This partnership brings us one step closer to making every rollup a ZK rollup.
+BRC-20s, Runes, Ordinals, and other Bitcoin assets rely on trusted offchain indexers.
+
+This changes today with the very first verifiable indexer on Bitcoin—Goldinals, built by @nubit_org and powered by Succinct.
+One of the biggest changes we made in SP1 Turbo w…"
+"Haha, what would happen if they see the speed of SP2 😁"
+you mean after their face is done melting?
+like me
+swaggy af
+Always choosing turbo 🫵
+Choose Turbo.

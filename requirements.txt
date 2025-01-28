@@ -1,4 +1,15 @@
+bs4==0.0.2
+chromadb==0.6.3
 groq==0.15.0
+langchain==0.3.15
+langchain-community==0.3.15
+langchain-huggingface==0.1.2
+phidata==2.9.7
+sentence-transformers==3.4.0
 streamlit==1.41.1
-typing==3.7.4.3
+tweepy==4.15.0
+
+
+
+
 
