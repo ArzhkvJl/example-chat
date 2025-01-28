@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import sys
 import pandas as pd
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
@@ -10,6 +11,9 @@ from phi.model.groq import Groq
 from phi.knowledge.langchain import LangChainKnowledgeBase
 from phi.run.response import RunResponse, RunEvent
 import tweepy
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+import chromadb
 
 
 def create_vectorstore():
@@ -155,5 +159,5 @@ else:
             st.warning("Too Many Requests, Tweet Rate Limit Exceeded!", icon="⚠")
         else:
             st.warning("Error response", icon="⚠")
-        # chromadb.api.client.SharedSystemClient.clear_system_cache()
+        chromadb.api.client().SharedSystemClient.clear_system_cache()
 
