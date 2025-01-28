@@ -41,12 +41,11 @@ def create_vectorstore():
     text_splitter = SemanticChunker(hf_embeddings, breakpoint_threshold_type="percentile")
     doc_splits = text_splitter.split_documents(docs_list)
 
-    embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
-    # Add to vectorDB
+    embeddings = HuggingFaceEmbeddings()
     vectorstore = Chroma.from_documents(
         documents=doc_splits,
         collection_name="rag-chroma",
-        embedding=OllamaEmbeddings(model='nomic-embed-text')
+        embedding=embeddings,
     )
     return vectorstore
 
