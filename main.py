@@ -129,7 +129,7 @@ else:
             bearer_token=twitter_api_key)
         if tweet_id:
             response = client.get_tweet(id=tweet_id, tweet_fields=['text'])
-            tweet = response.data.text
+            tweet = response.data
         else:
             tweet = ""
             response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'])
