@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import sys
 import pandas as pd
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
@@ -10,6 +11,8 @@ from phi.model.groq import Groq
 from phi.knowledge.langchain import LangChainKnowledgeBase
 from phi.run.response import RunResponse, RunEvent
 import tweepy
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 
 def create_vectorstore():
@@ -75,7 +78,6 @@ st.set_page_config(
 
 groq_api_key = st.sidebar.text_input("GROQ API Key", type="password")
 twitter_api_key = st.sidebar.text_input("X (Twitter) Bearer Token", type="password")
-os.environ['GROQ_API_KEY'] = groq_api_key
 os.environ['USER_AGENT'] = 'Agent-For-Twitter'
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -115,6 +117,7 @@ for message in st.session_state.messages:
 if not groq_api_key or not twitter_api_key:
     st.warning("Please enter your Groq API key and X (Twitter) Bearer Token!", icon="⚠")
 else:
+    os.environ['GROQ_API_KEY'] = groq_api_key
     user_input = st.chat_input("Paste an Account ID or Account ID and single Post ID")
     if user_input:
         inpt = user_input.split()
