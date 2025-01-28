@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import sys
 import pandas as pd
-from langchain_community.embeddings.ollama import OllamaEmbeddings
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
@@ -83,6 +82,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 st.title("Twitter reply Agent 🎈")
 
+chromadb.api.client().SharedSystemClient.clear_system_cache()
 retriever = create_vectorstore().as_retriever()
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 agent = Agent(model=Groq(id="llama-3.3-70b-versatile"),
@@ -141,6 +141,8 @@ else:
                 agent.search_knowledge = True
             else:
                 agent.search_knowledge = False
+
+            chromadb.api.client().SharedSystemClient.clear_system_cache()
 
             prompt_template = create_prompt()
 
