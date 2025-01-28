@@ -128,11 +128,11 @@ else:
         client = tweepy.Client(
             bearer_token=twitter_api_key)
         if tweet_id:
-            response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'])
+            response = client.get_tweet(id=tweet_id, tweet_fields=['text'])
             tweet = response.data.text
         else:
             tweet = ""
-            response = client.get_tweet(id=tweet_id, tweet_fields=['text'])
+            response = client.get_users_tweets(id=account_name, max_results=5, tweet_fields=['text'])
             tweets = response.data
             for sent in tweets:
                 tweet += sent.text
