@@ -1,3 +1,4 @@
+import sys
 import streamlit as st
 import os
 import pandas as pd
@@ -10,6 +11,8 @@ from phi.model.groq import Groq
 from phi.knowledge.langchain import LangChainKnowledgeBase
 from phi.run.response import RunResponse, RunEvent
 import tweepy
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 
 def create_vectorstore():
@@ -78,7 +81,6 @@ twitter_api_key = st.sidebar.text_input("X (Twitter) Bearer Token", type="passwo
 os.environ['GROQ_API_KEY'] = groq_api_key
 os.environ['USER_AGENT'] = 'Agent-For-Twitter'
 
-
 st.title("Twitter reply Agent 🎈")
 
 retriever = create_vectorstore().as_retriever()
@@ -146,7 +148,7 @@ else:
             with right.chat_message("assistant"):
                 stream = agent.run(prompt_template,
                                    stream=True,
-                                   temperature=temperature,)
+                                   temperature=temperature, )
                 r = generate_chat_responses(stream)
                 response = right.write_stream(r)
             st.session_state.messages.append({"role": "assistant", "content": response})
@@ -154,5 +156,3 @@ else:
             st.warning("Too Many Requests, Tweet Rate Limit Exceeded!", icon="⚠")
         else:
             st.warning("Error response", icon="⚠")
-
-
