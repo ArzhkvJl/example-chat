@@ -3,6 +3,7 @@ groq==0.15.0
 langchain==0.3.15
 langchain_chroma==0.2.1
 langchain-community==0.3.15
+langchain_experimental==0.3.4
 langchain-huggingface==0.1.2
 phidata==2.7.9
 pysqlite3-binary==0.5.4

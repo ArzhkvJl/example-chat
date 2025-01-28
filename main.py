@@ -2,7 +2,8 @@ import streamlit as st
 import os
 import sys
 import pandas as pd
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.embeddings.ollama import OllamaEmbeddings
+from langchain_experimental.text_splitter import SemanticChunker
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -36,9 +37,8 @@ def create_vectorstore():
     docs = [WebBaseLoader(url).load() for url in urls]
     docs_list = [item for sublist in docs for item in sublist]
 
-    text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        chunk_size=500, chunk_overlap=10
-    )
+    hf_embeddings = HuggingFaceEmbeddings()
+    text_splitter = SemanticChunker(hf_embeddings, breakpoint_threshold_type="percentile")
     doc_splits = text_splitter.split_documents(docs_list)
 
     embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
@@ -46,7 +46,7 @@ def create_vectorstore():
     vectorstore = Chroma.from_documents(
         documents=doc_splits,
         collection_name="rag-chroma",
-        embedding=embeddings,
+        embedding=OllamaEmbeddings(model='nomic-embed-text')
     )
     return vectorstore
 
