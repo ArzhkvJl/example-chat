@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import sys
 import pandas as pd
+import chromadb
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
@@ -158,3 +159,4 @@ else:
             st.warning("Too Many Requests, Tweet Rate Limit Exceeded!", icon="⚠")
         else:
             st.warning("Error response", icon="⚠")
+        chromadb.api.client.SharedSystemClient.clear_system_cache()
